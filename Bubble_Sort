@@ -8,9 +8,9 @@ int main()
     bool isswapped;
     int temp;
 
-    for (int i = 0; i < v.size() - 1; i++) {
+    for (int i = 0; i < v.size() - 1; i++) { // Loop n
         isswapped = false;
-        for (int j = 0; j < v.size() - 1 - i; j++) {
+        for (int j = 0; j < v.size() - 1 - i; j++) { //Loop n-1
             cout << "Items Compared: " << v[j] << " " << v[j + 1] << endl;
             if (v[j] > v[j + 1]) {
                 temp = v[j];
@@ -18,7 +18,7 @@ int main()
                 v[j + 1] = temp;
                 isswapped = true;
                 cout << "Swapped: " << v[j] << " " << v[j + 1] << endl;
-            }
+            } // constant
         }
         if (!isswapped) break;
     }
@@ -30,3 +30,12 @@ int main()
 
     return 0;
 }
+
+
+//Time complexity 
+// => n*(n - 1)
+// => n2 - n
+// => O(n2 - n)
+// => O(n2)
+
+//Space Complexity (It's constant because use of vector/ list / array so, O(1) 
