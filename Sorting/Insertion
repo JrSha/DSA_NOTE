@@ -1,0 +1,32 @@
+#include<iostream>
+#include<vector>
+#include<chrono>
+using namespace std;
+using namespace std::chrono;
+
+int main() {
+
+	vector<int> v = {5, 15, 1, 6, 70, 8, 9};
+	auto start_time = high_resolution_clock::now();
+	for (int i = 1; i < v.size(); i++) {
+		int curr=v[i];
+		int prev=i-1;
+		while(prev>=0 && v[prev]>curr) {
+			v[prev+1]=v[prev];
+			prev--;
+		}
+		v[prev+1]=curr;
+	}
+
+	auto end_time = high_resolution_clock::now();
+	auto duration = duration_cast<microseconds>(end_time - start_time);
+
+	cout << "Insertion Sorted:" << endl;
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << " ";
+	}
+	cout << endl;
+	cout << "Execution Time: " << duration.count() << " microseconds" << endl;
+
+	return 0;
+}
