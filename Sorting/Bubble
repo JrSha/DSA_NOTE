@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <chrono>
+using namespace std;
+using namespace std::chrono;
+
+int main()
+{
+	vector<int> v = {5, 3, 10, 15, 7, 9};
+	bool isswapped;
+	int temp;
+
+	auto start_time= high_resolution_clock::now();
+
+	for (int i = 0; i < v.size() - 1; i++) {
+		isswapped = false;
+		for (int j = 0; j < v.size() - 1 - i; j++) {
+			cout << "Items Compared: " << v[j] << " " << v[j + 1] << endl;
+			if (v[j] > v[j + 1]) {
+				temp = v[j];
+                v[j] = v[j + 1];
+                v[j + 1] = temp;
+				isswapped = true;
+				cout << "Swapped: " << v[j] << " " << v[j + 1] << endl;
+			}
+		}
+		if (!isswapped) break;
+	}
+
+	auto end_time=high_resolution_clock::now();
+
+	auto duration = duration_cast<microseconds>(end_time-start_time);
+	cout << "\n Bubble Sorted Array: ";
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << " ";
+	}
+	cout << endl;
+	cout << "Execution Time: " << duration.count() << " microseconds" << endl;
+
+
+	return 0;
+}
+
+
+//Time complexity 
+// => n*(n - 1)
+// => n2 - n
+// => O(n2 - n)
+// => O(n2)
+
+//Space Complexity (It's constant because use of vector/ list / array so, O(1) 
