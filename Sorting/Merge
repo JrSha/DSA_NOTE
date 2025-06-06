@@ -1,0 +1,66 @@
+#include <iostream>
+#include <vector>
+#include<chrono>
+using namespace std;
+using namespace std::chrono;
+
+void merge_Conquer(vector<int>& v, int st, int mid, int end) {
+	vector<int> temp;
+	int i = st, j = mid + 1;
+
+	while (i <= mid && j <= end) {     // Merge
+		if (v[i] <= v[j]) { // (v[i] >= v[j])-> descending
+			temp.push_back(v[i]);
+			i++;
+		} else {
+			temp.push_back(v[j]);
+			j++;
+		}
+	}
+
+	while (i <= mid) {    // Remaining at left
+		temp.push_back(v[i]);
+		i++;
+	}
+
+	while (j <= end) {     // Remaining at right
+		temp.push_back(v[j]);
+		j++;
+	}
+
+	for (int index = 0; index < temp.size(); index++) {    // Copy
+		v[st + index] = temp[index];
+	}
+}
+
+void merge_Divide(vector<int>& v, int st, int end) {
+	if (st < end) {
+		int mid = st + (end - st) / 2;
+		merge_Divide(v, st, mid); //left
+		merge_Divide(v, mid + 1, end); //right
+		merge_Conquer(v, st, mid, end);
+	}
+}
+
+int main() {
+	vector<int> v = {3, 2, 8, 45, 4, 36};
+
+	auto start_time=high_resolution_clock::now();
+
+	merge_Divide(v, 0, v.size() - 1);
+	auto end_time=high_resolution_clock::now();
+	auto duration=duration_cast<microseconds>(end_time - start_time);
+
+	cout << "Sorted Array (Merge Sort): ";
+	for (int i : v) cout << i << " ";
+	cout << endl;
+	cout<<"Excution Time: "<<duration.count()<<" microseconds"<<endl;
+	return 0;
+}
+
+
+//Time complexity 
+ = O(log n * n)
+ = O (nlog n)
+// Space Complexity
+ = O(n)
